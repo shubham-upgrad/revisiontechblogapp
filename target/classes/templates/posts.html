@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MMU TechBlog App</title>
+</head>
+<body>
+
+<h1>Welcome to the tech blogger app</h1>
+<header th:replace="layout :: logged-in"></header>
+<form method="get" th:action="@{/post/create}">
+    <input type="submit" value="Create Post"/>
+</form>
+<div th:each="p : ${userpostlist}">
+    <br>
+    <h2 th:text="${p.getTitle()}"></h2>
+    <i><p th:text="${p.getDate()}"></p></i>
+    <p th:text="${p.getBody()}"></p>
+    <br>
+    <div>
+        <a th:href="@{/editPost(postId=${p.id})}">Edit</a>
+        <a th:href="@{/deletePost(postId=${p.id})}">Delete</a>
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

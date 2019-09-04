@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TechBlogApp Home Page</title>
+</head>
+<body>
+
+<h1> Welcome to the tech blogger app</h1><br>
+<header th:replace="layout :: logged-out"></header>
+<h1> These are your posts :</h1><br>
+<div th:each="p : ${al_post}">
+    <br>
+    <h2 th:text="${p.getTitle()}"></h2>
+    <i><p th:text="${p.getDate()}"></p></i>
+    <p th:text="${p.getBody()}"></p>
+    <br>
+</div>
+</body>
+</html>
