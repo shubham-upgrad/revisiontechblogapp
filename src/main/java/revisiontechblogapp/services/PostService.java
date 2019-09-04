@@ -3,6 +3,7 @@ package revisiontechblogapp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import revisiontechblogapp.models.Post;
+import revisiontechblogapp.models.User;
 import revisiontechblogapp.repository.PostRepository;
 import revisiontechblogapp.repository.UserRepository;
 
@@ -22,5 +23,13 @@ public class PostService {
     }
 
 
+    public void createPost(Post post) {
+        //3. Set date
+        post.setDate(new Date());
+        postRepository.createPost(post);
+    }
 
+    public ArrayList<Post> getUserPosts(User user) {
+        return postRepository.getUserPosts(user);
+    }
 }

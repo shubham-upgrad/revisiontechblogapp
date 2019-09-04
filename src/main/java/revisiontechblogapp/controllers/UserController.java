@@ -65,4 +65,9 @@ public class UserController {
         userService.registerUser(user);
         return "user/login";
     }
+    @RequestMapping(value="/user/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
+    }
 }

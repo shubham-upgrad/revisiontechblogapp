@@ -18,6 +18,7 @@ public class UserRepository {
             tq.setParameter("tobecheckedusername",user.getUsername());
             tq.setParameter("tobecheckedpassword",user.getPassword());
             User existing = tq.getSingleResult();
+
             return existing;
         }catch(NoResultException e){
             return null;

@@ -35,8 +35,8 @@ public class Post {
     @JoinColumn(name="user_id")
     private User user;
 
-    @ManyToMany(fetch=FetchType.EAGER,cascade = {CascadeType.MERGE,CascadeType.PERSIST})
-    private List<Category> categories = new ArrayList<>();
+//    @ManyToMany(fetch=FetchType.EAGER,cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+//    private List<Category> categories = new ArrayList<>();
 
     public String getTitle() {
         return title;
@@ -68,5 +68,13 @@ public class Post {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
