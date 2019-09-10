@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import revisiontechblogapp.models.Post;
 import revisiontechblogapp.models.User;
 import revisiontechblogapp.services.PostService;
@@ -41,6 +42,34 @@ public class PostController {
         postService.createPost(post);
         return "redirect:/posts";
     }
-
+    @RequestMapping("/editPost")
+    public String editPostPage(@RequestParam(name="postId") Integer id,Model model){
+        Post p=postService.getOnePost(id); //using find() method of EntityManager(interface)
+        model.addAttribute("post",p);
+        return "post/edit";
+    }
+    @RequestMapping(value = "/editPost",method = RequestMethod.POST)
+    public String editPost(Post updatedPost,Model model){
+        /*
+        * updatedPost contains(example) :
+        *   id = 5 (not null, it is coming from hidden field named id)
+        *   title = "Some updated Title" (not null, coming from a text field "title")
+        *   body = "Some updated Body"
+        *   date = null
+        *   user = null
+        * */
+        // First set user and date from the database(existing post)
+        Post existing=postService.getOnePost(updatedPost.getId());
+        updatedPost.setDate(existing.getDate());
+        updatedPost.setUser(existing.getUser());
+        // Now merge() [--> updation] this post with the post in database
+        postService.editPost(updatedPost);
+        return "redirect:/posts";
+    }
+    @RequestMapping(value="/deletePost")
+    public String deletePost(@RequestParam(name="postId")Integer id){
+        postService.deletePost(id);
+        return "redirect:/posts";
+    }
 
 }

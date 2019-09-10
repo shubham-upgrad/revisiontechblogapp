@@ -23,10 +23,12 @@ public class PostRepository { // The Database Communicators
     public void createPost(Post post) {
         EntityManager em=entityManagerFactory.createEntityManager();
         EntityTransaction et=em.getTransaction();
+
         try{
             et.begin();
             em.persist(post); // user object is an entity instance(instance of User)
             // persist method is simply ,making a transient/new object persistent
+            post.setTitle("I modified this title without em");
             et.commit();
         }catch(Exception e){
             e.printStackTrace();
@@ -43,4 +45,40 @@ public class PostRepository { // The Database Communicators
         // Adding it to the model(the one that sends data to views)
         return al;
     }
+
+    public Post getOnePost(Integer id) {
+        return entityManagerFactory.createEntityManager().find(Post.class,id);
+    }
+
+
+    public void editPost(Post updatedPost) {
+        EntityManager em=entityManagerFactory.createEntityManager();
+        EntityTransaction et=em.getTransaction();
+        try{
+            et.begin();
+
+            em.merge(updatedPost);
+
+            et.commit();
+        }catch(Exception e){
+            et.rollback();
+            e.printStackTrace();
+        }
+    }
+
+    public void deletePost(Integer id) {
+        EntityManager em=entityManagerFactory.createEntityManager();
+        EntityTransaction et=em.getTransaction();
+        try{
+            et.begin();
+            Post existing=em.find(Post.class,id);
+
+            em.remove(existing);
+            et.commit();
+        }catch(Exception e){
+            et.rollback();
+            e.printStackTrace();
+        }
+    }
 }
+

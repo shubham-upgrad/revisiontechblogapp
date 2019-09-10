@@ -32,4 +32,17 @@ public class PostService {
     public ArrayList<Post> getUserPosts(User user) {
         return postRepository.getUserPosts(user);
     }
+
+    public Post getOnePost(Integer id) {
+        return postRepository.getOnePost(id);
+    }
+
+
+    public void editPost(Post updatedPost) {
+        postRepository.editPost(updatedPost);
+    }
+
+    public void deletePost(Integer id) {
+        postRepository.deletePost(id);
+    }
 }
