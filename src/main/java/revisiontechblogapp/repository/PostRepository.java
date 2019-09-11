@@ -28,7 +28,7 @@ public class PostRepository { // The Database Communicators
             et.begin();
             em.persist(post); // user object is an entity instance(instance of User)
             // persist method is simply ,making a transient/new object persistent
-            post.setTitle("I modified this title without em");
+
             et.commit();
         }catch(Exception e){
             e.printStackTrace();

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import revisiontechblogapp.models.Category;
 import revisiontechblogapp.models.Post;
 import revisiontechblogapp.models.User;
 import revisiontechblogapp.services.PostService;
@@ -39,6 +40,17 @@ public class PostController {
         User loggeduser=(User)session.getAttribute("loggeduser");
         post.setUser(loggeduser);
         //2. Ask service to add date and create this post in database
+        // Adding Categories to a post
+        if(post.getJavaBlog()!=null){
+            Category javaCategory = new Category();
+            javaCategory.setCategory("Java Blog");
+            post.getCategories().add(javaCategory);
+        }
+        if(post.getSpringBlog()!=null){
+            Category springCategory = new Category();
+            springCategory.setCategory("Spring Blog");
+            post.getCategories().add(springCategory);
+        }
         postService.createPost(post);
         return "redirect:/posts";
     }
